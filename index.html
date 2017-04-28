@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Knjiznica</title>
+    <meta charset="UTF-8">
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="style.css" rel="stylesheet" type="text/css" />
+    <script src="http://maps.googleapis.com/maps/api/js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"> </script>
+    <script src="typeahead.min.js"></script>
+    <script>
+    $(document).ready(function(){
+    $('input.typeahead').typeahead({
+        name: 'typeahead',
+        remote:'search.php?key=%QUERY',
+        limit : 10
+    });
+});
+    </script>
+
+</head>
+<script>
+function showHint(str) {
+    if (str.length == 0) { 
+        document.getElementById("txtHint").innerHTML = "";
+        return;
+    } else {
+        var xmlhttp = new XMLHttpRequest();
+        xmlhttp.onreadystatechange = function() {
+            if (this.readyState == 4 && this.status == 200) {
+                document.getElementById("txtHint").innerHTML = this.responseText;
+            }
+        }
+        xmlhttp.open("GET", "connect.php?q="+str, true);
+        xmlhttp.send();
+    }
+}
+
+</script>
+<body>
+    <?php 
+    include 'connect.php'
+?>
+    <header>
+		<div class="frame">
+			<nav class="menu">
+            <ul>
+                <li>
+                    <a href="index.html">Početna</a>
+                </li> 
+                <li>
+                    <a href="baza.html">Baza podataka</a>    
+                </li>
+                <li>
+                    <a href="tim.html">Tim</a>
+                </li>
+            </ul>
+            </nav>
+		</div>
+    </header>
+    
+        <h2 class="naslov">
+        Potraži odgovarajuću knjigu
+            <div class="search">
+            <form action=""> 
+            <input class="search-input" type="text" id="txt1" onkeyup="showHint(this.value)">
+                </form>
+    
+ </div>
+    </h2>   
+<p><span id="txtHint"></span></p>
+  <br>
+       
+
+    	
+</body>
+        
+        

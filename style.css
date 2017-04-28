@@ -1,0 +1,123 @@
+ol, ul {
+    list-style: none;
+}
+
+li {
+    display: inline;
+    list-style-type: none;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+
+.frame {
+    position: relative;
+    width: 1172px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+
+header {
+    position: fixed;
+    top: 0; 
+    left: 0;
+    width: 100%; 
+    height: 87px;
+    line-height: 87px;
+    background-color: lightgrey;
+    border-bottom: 1px solid grey;
+    z-index: 999;
+}
+
+
+.menu {
+    position: fixed;
+    overflow: auto;
+}
+
+.menu li {
+    float: left;
+    cursor: pointer;
+}
+
+.menu li a {
+    display: block;
+    height: 87px;
+    margin: 0 10px;
+    padding: 0 15px;
+    color: #494949;
+    font-family: Verdana;
+}
+
+.menu li a:hover,
+.menu li a:focus,
+.menu li a.active {
+    border-top: 3px solid grey;
+}
+
+.naslov{
+    margin-top: 150px;
+    text-align: center;
+    color: grey;
+}
+
+.search {
+    position: relative;
+    width: 350px;
+    height: 25px;
+    padding: 11px 15px;
+    margin-top: 24px;
+    background-color: lightgrey;
+    border-radius: 30px;
+    margin-right:auto; 
+    margin-left:auto; 
+}
+
+
+.search-input {
+    float: left;
+    width: 100%;
+    color: black;
+    font-size: 14px;
+    background-color:transparent;
+}
+
+.model{
+    margin-top: 150px;
+    align-content: center;
+}
+.tekst{
+    font-family: Verdana;
+    font-size: 20px;
+}
+
+
+.about {
+    color: #585858;
+}
+
+.about-title {
+    font-size: 24px;
+    padding: 40px 0;
+    border-bottom: 2px solid rgba(109, 109, 109, 0.43);
+}
+
+.about-items {
+    width: 100%;
+    height: 471px;
+    margin: 30px 0 50px 0;
+}
+
+.about-item {
+    float: left;
+    width: 310px;
+    padding-bottom: 30px;
+    margin-right: 121px;
+    text-align: left;
+    border-bottom: 17px solid grey;
+}
+
