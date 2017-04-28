@@ -20,10 +20,11 @@ $result = mysqli_query($db, $query);
 while ($row = mysqli_fetch_array($result)) {
 	
 	$a[]=($row['naziv_knjige']);
-    
-$q = $_REQUEST["q"];
 
-$hint = "";
+    
+$q = $_REQUEST["q"]; //prvo slovo
+
+$hint = ""; //upis
 
 // lookup all hints from array if $q is different from "" 
 if ($q !== "") {
@@ -39,30 +40,49 @@ if ($q !== "") {
         }
     }
 }
+
 }
 // Output "no suggestion" if no hint was found or output correct values 
-echo $hint === "" ? "no suggestion" : $hint;
+      
+//  echo $hint === "" ? "nema prijedloga" : $hint;
 
-
-echo "<table border=1>
+        if(!$hint) {
+            echo "Nema prijedloga";
+        }
+        else
+        {
+                   
+echo "<table border=2 width=100%>
 <tr>
 <th>Naziv knjige</th>
+<th>Vrsta knjige</th>
 <th>Autor knjige</th>
 <th>Šifra knjige</th>
+<th>Izdavač</th>
 </tr>";
         
 $result = mysqli_query($db,
-    "SELECT knjiga.naziv_knjige, knjiga.id_knjige, autor.naziv_autora FROM knjiga INNER JOIN autor ON knjiga.id_autora = autor.id_autora");
-      
-while($row = mysqli_fetch_array($result)) {
+    "SELECT knjiga.naziv_knjige, knjiga.id_knjige, autor.naziv_autora, izdavac.naziv_izdavaca, vrsta_knjiga.vrsta_knjige 
+    FROM knjiga INNER JOIN autor ON knjiga.id_autora = autor.id_autora 
+    INNER JOIN izdavac ON knjiga.id_izdavaca = izdavac.id_izdavaca 
+    INNER JOIN vrsta_knjiga ON knjiga.id_vrstaknjige = vrsta_knjiga.id_vrstaknjige 
+    WHERE knjiga.naziv_knjige LIKE '%{$hint}%'");
+        
+         
+while ($row = mysqli_fetch_assoc($result))
+
+{
+    
     echo "<tr>";
     echo "<td>" . $row['naziv_knjige'] . "</td>";
+    echo "<td>" . $row['vrsta_knjige'] . "</td>";
     echo "<td>" . $row['naziv_autora'] . "</td>";
     echo "<td>" . $row['id_knjige'] . "</td>";
+    echo "<td>" . $row['naziv_izdavaca'] . "</td>";
     echo "</tr>";
 }
 echo "</table>";
-        
+        }
         
 mysqli_close($db);
 
