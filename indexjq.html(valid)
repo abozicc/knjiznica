@@ -31,7 +31,10 @@
     
 </head>
 <body>
-
+    <!--PHP -->
+        <?php 
+    include 'connect.php'
+?>
            
           
     <div id="wrapper">
@@ -44,7 +47,7 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a class="navbar-brand" href="#">
-                        <img src="assets/img/logo1.png" alt="LOGO"/>
+                        <img src="assets/img/logo1.png" />
 
                     </a>
                     
@@ -57,14 +60,14 @@
             </div>
         </div>
         <!-- /. NAV TOP  -->
-        <nav class="navbar-default navbar-side">
+        <nav class="navbar-default navbar-side" role="navigation">
             <div class="sidebar-collapse">
                 <ul class="nav" id="main-menu">
                  
 
 
                     <li class="active-link">
-                        <a href="index.html" ><i class="fa fa-desktop "></i> Knjiznica </a>
+                        <a href="indexpocetna.php" ><i class="fa fa-desktop "></i> Knjiznica </a>
                     </li>
                     
                     
@@ -109,10 +112,10 @@
                 
                   
         <h5 class="naslov"> 
-        Potraži odgovarajuću knjigu 
+        Potraži odgovarajuću knjigu putem JQUERY (ajax metoda)
              </h5> 
           <div class="search">
-            <form>
+            <form action="">
             <!-- <input class="search-input" type="text" id="txt1" onkeyup="showHint(this.value)"> -->
                 
                 <input class="search-input" type="text" id="txt1">
