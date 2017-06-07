@@ -24,20 +24,20 @@ $result = mysql_query("SELECT knjiga.naziv_knjige, knjiga.id_knjige, autor.naziv
     INNER JOIN izdavac ON knjiga.id_izdavaca = izdavac.id_izdavaca 
     INNER JOIN vrsta_knjiga ON knjiga.id_vrstaknjige = vrsta_knjiga.id_vrstaknjige 
     WHERE knjiga.naziv_knjige LIKE '%{$yourName}%'");
-//$response = array();
+$response = array();
   
   
   while ($row = mysql_fetch_array($result)) {
-  /*
+  
 	$tmp= array();
 		$tmp["Naziv knjige"] = $row["naziv_knjige"]; 
 		$tmp["ID knjige"]        = $row["id_knjige"];
-		$tmp["izdavac"]        = $row["SELECT naziv_izdavaca FROM izdavac WHERE izdavac.id_izdavaca = knjiga.id_izdavaca"];
+		$tmp["izdavac"]        = $row["naziv_izdavaca"];
 		$tmp["autor"]        = $row["naziv_autora"];
-		$tmp["vrsta knjige"]        = $row["vrsta_knjiga_vrsta_knjige"];
+		$tmp["vrsta knjige"]        = $row["vrsta_knjige"];
 
         array_push($response, $tmp);
-	*/	
+		
 	
 	
     $privremeni = $privremeni
@@ -49,12 +49,11 @@ $result = mysql_query("SELECT knjiga.naziv_knjige, knjiga.id_knjige, autor.naziv
 }
 
 
-//    $jsonn = json_encode($response);
+    $jsonn = json_encode($response);
 //	return $jsonn;
     return $privremeni;
 }
-
-                    
+           
 $server->AddFunction("doHello");
 $server->handle();
 ?>
