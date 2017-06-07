@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 28, 2017 at 03:30 AM
+-- Generation Time: Jun 07, 2017 at 08:37 PM
 -- Server version: 10.1.21-MariaDB
 -- PHP Version: 5.6.30
 
@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `autor` (
   `id_autora` int(11) NOT NULL,
-  `naziv_autora` varchar(255) NOT NULL
+  `naziv_autora` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -36,11 +36,12 @@ CREATE TABLE `autor` (
 --
 
 INSERT INTO `autor` (`id_autora`, `naziv_autora`) VALUES
-(1000, 'Ivo Andric'),
-(1001, 'Marko Marulic'),
-(1002, 'Tin Ujevic'),
-(1003, 'Edgar Allan Poe'),
-(1004, 'Ernest Hemingway');
+(1, 'Ivo Andric'),
+(2, 'Miroslav Krleza'),
+(3, 'John Tolkien'),
+(4, 'Antun Branko Simic'),
+(5, 'Ivana Brlic Mazuranic'),
+(6, 'Ivan Gundulic');
 
 -- --------------------------------------------------------
 
@@ -50,18 +51,18 @@ INSERT INTO `autor` (`id_autora`, `naziv_autora`) VALUES
 
 CREATE TABLE `clanarina` (
   `id_clanarine` int(11) NOT NULL,
+  `iznos_clanarine` varchar(50) NOT NULL,
   `datum_uplate` date NOT NULL,
-  `iznos` int(11) NOT NULL,
-  `id_studenta` int(11) DEFAULT NULL
+  `id_studenta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `clanarina`
 --
 
-INSERT INTO `clanarina` (`id_clanarine`, `datum_uplate`, `iznos`, `id_studenta`) VALUES
-(1, '2017-04-04', 10, 1),
-(2, '2017-05-05', 10, 2);
+INSERT INTO `clanarina` (`id_clanarine`, `iznos_clanarine`, `datum_uplate`, `id_studenta`) VALUES
+(1, '10 KM', '2017-05-08', 1),
+(2, '15 KM', '2017-05-17', 2);
 
 -- --------------------------------------------------------
 
@@ -71,18 +72,17 @@ INSERT INTO `clanarina` (`id_clanarine`, `datum_uplate`, `iznos`, `id_studenta`)
 
 CREATE TABLE `fakultet` (
   `id_fakulteta` int(11) NOT NULL,
-  `naziv_fakulteta` varchar(255) NOT NULL,
-  `adresa` varchar(255) DEFAULT NULL
+  `naziv_fakulteta` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `fakultet`
 --
 
-INSERT INTO `fakultet` (`id_fakulteta`, `naziv_fakulteta`, `adresa`) VALUES
-(4000, 'Pravni fakultet', 'Matice hrvatske b.b.'),
-(4001, 'FSR', 'Matice hrvatske b.b.'),
-(4002, 'Ekonomski fakultet', 'Matice hrvatske b.b.');
+INSERT INTO `fakultet` (`id_fakulteta`, `naziv_fakulteta`) VALUES
+(1, 'FSR'),
+(2, 'FFMO'),
+(3, 'PMF');
 
 -- --------------------------------------------------------
 
@@ -92,7 +92,7 @@ INSERT INTO `fakultet` (`id_fakulteta`, `naziv_fakulteta`, `adresa`) VALUES
 
 CREATE TABLE `izdavac` (
   `id_izdavaca` int(11) NOT NULL,
-  `naziv_izdavaca` varchar(255) NOT NULL
+  `naziv_izdavaca` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -100,10 +100,8 @@ CREATE TABLE `izdavac` (
 --
 
 INSERT INTO `izdavac` (`id_izdavaca`, `naziv_izdavaca`) VALUES
-(2000, 'verbum'),
-(2001, 'Matica Hrvatska'),
-(2002, 'Skolska knjiga'),
-(2003, 'Skolska naknada');
+(1, 'Skolska knjiga'),
+(2, 'Matica hrvatske');
 
 -- --------------------------------------------------------
 
@@ -113,22 +111,44 @@ INSERT INTO `izdavac` (`id_izdavaca`, `naziv_izdavaca`) VALUES
 
 CREATE TABLE `knjiga` (
   `id_knjige` int(11) NOT NULL,
-  `naziv_knjige` varchar(255) NOT NULL,
-  `id_autora` int(11) DEFAULT NULL,
-  `id_izdavaca` int(11) DEFAULT NULL,
-  `id_vrste` int(11) DEFAULT NULL
+  `naziv_knjige` varchar(50) NOT NULL,
+  `id_izdavaca` int(11) NOT NULL,
+  `id_autora` int(11) NOT NULL,
+  `id_vrstaknjige` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `knjiga`
 --
 
-INSERT INTO `knjiga` (`id_knjige`, `naziv_knjige`, `id_autora`, `id_izdavaca`, `id_vrste`) VALUES
-(1, 'Na Drini cuprija', 1000, 2000, 3001),
-(2, 'Judita', 1001, 2001, 3000),
-(3, 'Notturno', 1002, 2001, 3002),
-(4, 'Gavran', 1003, 2003, 3000),
-(5, 'Kome zvona zvone', 1004, 2000, 3000);
+INSERT INTO `knjiga` (`id_knjige`, `naziv_knjige`, `id_izdavaca`, `id_autora`, `id_vrstaknjige`) VALUES
+(1, 'Na Drini cuprija', 1, 1, 1),
+(2, 'Gospoda Glembajevi', 2, 2, 2),
+(3, 'Gospodar prstenova', 2, 3, 3),
+(4, 'Suma Striborova', 1, 5, 6),
+(5, 'Moja preobrazenja', 2, 4, 4),
+(6, 'Osman', 1, 6, 5);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `login`
+--
+
+CREATE TABLE `login` (
+  `korisnicko_ime` varchar(55) NOT NULL,
+  `lozinka` varchar(55) NOT NULL,
+  `id_studenta` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `login`
+--
+
+INSERT INTO `login` (`korisnicko_ime`, `lozinka`, `id_studenta`) VALUES
+('admin', 'admin', 3),
+('miamia', 'mostar', 1),
+('peropero', 'mostar', 2);
 
 -- --------------------------------------------------------
 
@@ -140,8 +160,8 @@ CREATE TABLE `posudba` (
   `id_posudbe` int(11) NOT NULL,
   `datum_posudbe` date NOT NULL,
   `datum_povratka` date NOT NULL,
-  `id_knjige` int(11) DEFAULT NULL,
-  `id_studenta` int(11) DEFAULT NULL
+  `id_knjige` int(11) NOT NULL,
+  `id_studenta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -149,8 +169,8 @@ CREATE TABLE `posudba` (
 --
 
 INSERT INTO `posudba` (`id_posudbe`, `datum_posudbe`, `datum_povratka`, `id_knjige`, `id_studenta`) VALUES
-(1, '2017-04-05', '2017-04-20', 1, 2),
-(2, '2017-04-12', '2017-03-13', 2, 1);
+(1, '2017-05-01', '2017-05-09', 1, 1),
+(2, '2017-05-09', '2017-05-12', 2, 2);
 
 -- --------------------------------------------------------
 
@@ -159,41 +179,43 @@ INSERT INTO `posudba` (`id_posudbe`, `datum_posudbe`, `datum_povratka`, `id_knji
 --
 
 CREATE TABLE `student` (
-  `id_studenta` int(11) NOT NULL,
-  `ime_studenta` varchar(255) NOT NULL,
-  `prezime_studenta` varchar(255) NOT NULL,
-  `adresa` varchar(255) DEFAULT NULL,
-  `telefon` varchar(255) DEFAULT NULL,
-  `id_fakulteta` int(11) DEFAULT NULL
+  `id_student` int(11) NOT NULL,
+  `ime_studenta` varchar(50) NOT NULL,
+  `prezime_studenta` varchar(50) NOT NULL,
+  `id_fakulteta` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `student`
 --
 
-INSERT INTO `student` (`id_studenta`, `ime_studenta`, `prezime_studenta`, `adresa`, `telefon`, `id_fakulteta`) VALUES
-(1, 'Marta', 'Ivanic', 'Kralja Zvonimira 13 Mostar', '38763111111', NULL),
-(2, 'Patrik', 'Radic', 'Kneza Viseslava 10 Mostar', '38763222222', NULL);
+INSERT INTO `student` (`id_student`, `ime_studenta`, `prezime_studenta`, `id_fakulteta`) VALUES
+(1, 'Mia ', 'Milic', 1),
+(2, 'Pero', 'Peric', 2),
+(3, 'Arya', 'Stark', 1);
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vrsta`
+-- Table structure for table `vrsta_knjiga`
 --
 
-CREATE TABLE `vrsta` (
-  `id_vrste` int(11) NOT NULL,
-  `naziv_vrste` varchar(255) NOT NULL
+CREATE TABLE `vrsta_knjiga` (
+  `id_vrstaknjige` int(11) NOT NULL,
+  `vrsta_knjige` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `vrsta`
+-- Dumping data for table `vrsta_knjiga`
 --
 
-INSERT INTO `vrsta` (`id_vrste`, `naziv_vrste`) VALUES
-(3000, 'poezija'),
-(3001, 'proza'),
-(3002, 'drama');
+INSERT INTO `vrsta_knjiga` (`id_vrstaknjige`, `vrsta_knjige`) VALUES
+(1, 'Proza'),
+(2, 'Drama'),
+(3, 'Roman'),
+(4, 'Poezija'),
+(5, 'Ep'),
+(6, 'Bajka');
 
 --
 -- Indexes for dumped tables
@@ -229,9 +251,16 @@ ALTER TABLE `izdavac`
 --
 ALTER TABLE `knjiga`
   ADD PRIMARY KEY (`id_knjige`),
-  ADD KEY `id_autora` (`id_autora`),
   ADD KEY `id_izdavaca` (`id_izdavaca`),
-  ADD KEY `id_vrste` (`id_vrste`);
+  ADD KEY `id_autora` (`id_autora`),
+  ADD KEY `id_vrstaknjige` (`id_vrstaknjige`);
+
+--
+-- Indexes for table `login`
+--
+ALTER TABLE `login`
+  ADD PRIMARY KEY (`korisnicko_ime`),
+  ADD KEY `id_studenta` (`id_studenta`);
 
 --
 -- Indexes for table `posudba`
@@ -245,14 +274,14 @@ ALTER TABLE `posudba`
 -- Indexes for table `student`
 --
 ALTER TABLE `student`
-  ADD PRIMARY KEY (`id_studenta`),
+  ADD PRIMARY KEY (`id_student`),
   ADD KEY `id_fakulteta` (`id_fakulteta`);
 
 --
--- Indexes for table `vrsta`
+-- Indexes for table `vrsta_knjiga`
 --
-ALTER TABLE `vrsta`
-  ADD PRIMARY KEY (`id_vrste`);
+ALTER TABLE `vrsta_knjiga`
+  ADD PRIMARY KEY (`id_vrstaknjige`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -262,7 +291,7 @@ ALTER TABLE `vrsta`
 -- AUTO_INCREMENT for table `autor`
 --
 ALTER TABLE `autor`
-  MODIFY `id_autora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1005;
+  MODIFY `id_autora` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `clanarina`
 --
@@ -272,17 +301,17 @@ ALTER TABLE `clanarina`
 -- AUTO_INCREMENT for table `fakultet`
 --
 ALTER TABLE `fakultet`
-  MODIFY `id_fakulteta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4003;
+  MODIFY `id_fakulteta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `izdavac`
 --
 ALTER TABLE `izdavac`
-  MODIFY `id_izdavaca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2004;
+  MODIFY `id_izdavaca` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `knjiga`
 --
 ALTER TABLE `knjiga`
-  MODIFY `id_knjige` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_knjige` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `posudba`
 --
@@ -292,12 +321,12 @@ ALTER TABLE `posudba`
 -- AUTO_INCREMENT for table `student`
 --
 ALTER TABLE `student`
-  MODIFY `id_studenta` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_student` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
--- AUTO_INCREMENT for table `vrsta`
+-- AUTO_INCREMENT for table `vrsta_knjiga`
 --
-ALTER TABLE `vrsta`
-  MODIFY `id_vrste` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3003;
+ALTER TABLE `vrsta_knjiga`
+  MODIFY `id_vrstaknjige` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- Constraints for dumped tables
 --
@@ -306,28 +335,34 @@ ALTER TABLE `vrsta`
 -- Constraints for table `clanarina`
 --
 ALTER TABLE `clanarina`
-  ADD CONSTRAINT `clanarina_ibfk_1` FOREIGN KEY (`id_studenta`) REFERENCES `student` (`id_studenta`);
+  ADD CONSTRAINT `id_studenta` FOREIGN KEY (`id_studenta`) REFERENCES `student` (`id_student`);
 
 --
 -- Constraints for table `knjiga`
 --
 ALTER TABLE `knjiga`
-  ADD CONSTRAINT `knjiga_ibfk_1` FOREIGN KEY (`id_autora`) REFERENCES `autor` (`id_autora`),
-  ADD CONSTRAINT `knjiga_ibfk_2` FOREIGN KEY (`id_izdavaca`) REFERENCES `izdavac` (`id_izdavaca`),
-  ADD CONSTRAINT `knjiga_ibfk_3` FOREIGN KEY (`id_vrste`) REFERENCES `vrsta` (`id_vrste`);
+  ADD CONSTRAINT `id_autora` FOREIGN KEY (`id_autora`) REFERENCES `autor` (`id_autora`),
+  ADD CONSTRAINT `id_izdavaca` FOREIGN KEY (`id_izdavaca`) REFERENCES `izdavac` (`id_izdavaca`),
+  ADD CONSTRAINT `id_vrstaknjige` FOREIGN KEY (`id_vrstaknjige`) REFERENCES `vrsta_knjiga` (`id_vrstaknjige`);
+
+--
+-- Constraints for table `login`
+--
+ALTER TABLE `login`
+  ADD CONSTRAINT `login_ibfk_1` FOREIGN KEY (`id_studenta`) REFERENCES `student` (`id_student`);
 
 --
 -- Constraints for table `posudba`
 --
 ALTER TABLE `posudba`
   ADD CONSTRAINT `posudba_ibfk_1` FOREIGN KEY (`id_knjige`) REFERENCES `knjiga` (`id_knjige`),
-  ADD CONSTRAINT `posudba_ibfk_2` FOREIGN KEY (`id_studenta`) REFERENCES `student` (`id_studenta`);
+  ADD CONSTRAINT `posudba_ibfk_2` FOREIGN KEY (`id_studenta`) REFERENCES `student` (`id_student`);
 
 --
 -- Constraints for table `student`
 --
 ALTER TABLE `student`
-  ADD CONSTRAINT `student_ibfk_1` FOREIGN KEY (`id_fakulteta`) REFERENCES `fakultet` (`id_fakulteta`);
+  ADD CONSTRAINT `id_fakulteta` FOREIGN KEY (`id_fakulteta`) REFERENCES `fakultet` (`id_fakulteta`);
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
