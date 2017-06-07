@@ -1,3 +1,13 @@
+<?php
+if (isset($_COOKIE['uname'])){
+$prijavljen=true;
+$razina=$_COOKIE['razina'];
+}
+else {
+$prijavljen=false;
+$razina=0;
+}
+?>
 
 <!DOCTYPE html>
 <?php
@@ -48,7 +58,6 @@ function showHint(str) {
 </head>
 <body>
     <!--PHP -->
-        
           
     <div id="wrapper">
          <div class="navbar navbar-inverse navbar-fixed-top">
@@ -65,11 +74,39 @@ function showHint(str) {
                     </a>
                     
                 </div>
-              
-                <span class="logout-spn" >
-                  <a href="#" style="color:#fff;">Odjava</a>  
+                 
+                <span style = "float: right; padding-top: 20px; padding-right: 40px">
+<?php
+if(!isset($_COOKIE['uname']))
+    {
+                echo' <form method="post" action="prijava.php" >
+                     <ul>
+                    
+                  
+                    <input type="username" placeholder="Korisnicko ime" name="username">
+                  
+                    <input type="password" placeholder="Lozinka" name="password">
+                 
+                    <input type="submit" name="Prijava " value="Prijavi se" >
+                
+                    </form>';
+                }
+                else
+                {
+                    echo '
+                    <form method="post" action="logout.php" >
+
+                
+                    <input class="btn btn-primary" type="submit" name="Prijava " value="Odjavi se" >
+                    
+                    </ul>
+                    </form>
+                    ';
+                }
+                    ?> 
 
                 </span>
+               
             </div>
         </div>
         <!-- /. NAV TOP  -->
@@ -85,16 +122,19 @@ function showHint(str) {
                     
                     
                     <li>
-                        <a href="zadatak.html"><i class="fa fa-qrcode "></i>Zadatak</a>
+                        <a href="zadatak.php"><i class="fa fa-edit "></i>Zadatak</a>
                     </li>
                     
                     <li>
-                        <a href="baza.html"><i class="fa fa-qrcode "></i>Baza</a>
+                        <a href="baza.php"><i class="fa fa-table "></i>Baza</a>
                     </li>
 
 
                     <li>
-                        <a href="tim.html"><i class="fa fa-qrcode "></i>O nama</a>
+                        <a href="tim.php"><i class="fa fa-user "></i>O nama</a>
+                    </li>
+                    <li>
+                        <a href="mvc.php"><i class="fa fa-bars "></i>MVC</a>
                     </li>
                 
                     
@@ -120,11 +160,12 @@ function showHint(str) {
                        
                     </div>
                     </div>
-                
-                
-                
-<a href="http://localhost:81/index.html" class="btn btn-default">Ajax 1</a>
-<a href="http://localhost:81/indexjq.html" class="btn btn-default">Ajax 2</a>
+                            
+<br><br>
+            
+              
+<a href="http://localhost:81/index.php" class="btn btn-default">Ajax 1</a>
+<a href="http://localhost:81/indexjq.php" class="btn btn-default">Ajax 2</a>
 
 <br><br>
                   
@@ -187,15 +228,17 @@ function showHint(str) {
 					echo "</form>";
 					
 				}
-				 
-                ?>
-				
-				<br><br><br>
+		?>
+                <br><br>
+
                 <form action="HelloClient.php" method="post">
-                     <input type="text" class="form-control" placeholder="Izdavac" name="trazi">
+                     <input type="text" class="form-control" placeholder="Izdavac" name="trazi"><br>
+                     <input type="text" class="form-control" placeholder="Vrsta knjige" name="trazi"><br>
                      <button>Trazi</button>
                 </form>
-                
+
+  
+                </div>              
                 
                 
                   <!-- /. ROW  --> 
